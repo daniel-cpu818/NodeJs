@@ -20,7 +20,7 @@ export class RegisterUserService {
       const user = this.repository.create({
         name: data.name.trim(),
         email: data.email.toLowerCase().trim(),
-        password: data.password.trim(), // En producción: aplica hash con bcrypt
+        password: data.password.trim(), 
       });
 
       return await this.repository.save(user);
