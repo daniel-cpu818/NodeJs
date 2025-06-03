@@ -5,3 +5,4 @@ export interface UpdateUserDTO {
   role?: 'user' | 'admin';
   status?: boolean;
 }
+

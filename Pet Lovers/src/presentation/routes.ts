@@ -12,8 +12,6 @@ export class AppRoutes {
     // Ruta para usuarios
     router.use("/api/", UserRoutes.routes);
 
-
-
     return router;
   }
 }

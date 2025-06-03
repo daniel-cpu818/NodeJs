@@ -10,6 +10,7 @@ import { PetPost } from "./pet-post.model";
 export enum UserRole {
   USER = "user",
   ADMIN = "admin",
+  DOCTOR = "doctor",
 }
   
 
@@ -23,6 +24,14 @@ export class User {
 
   @Column({ unique: true })
   email!: string;
+
+  // @Column({ 
+  // type: 'varchar', 
+  // length: 20, 
+  // nullable: false, 
+  // unique: true 
+  // })
+  // phone!: string;
 
   @Column()
   password!: string;

@@ -20,13 +20,23 @@ export class RegisterUserService {
 
       const hashedPassword = await bcrypt.hash(data.password.trim(), 10);
       
-      const user = this.repository.create({
-        name: data.name.trim(),
-        email: data.email.trim().toLowerCase(),
-        password: hashedPassword,
-        role: UserRole.USER, 
-        status: true,
-      });
+      // const user = this.repository.create({
+      //   name: data.name.trim(),
+      //   email: data.email.trim().toLowerCase(),
+      //   password: hashedPassword,
+      //   role: UserRole.USER, 
+      //   status: true,
+      // });
+
+      const user = new User();
+      user.name = data.name.trim();
+      user.email = data.email.trim().toLowerCase();
+      user.password = hashedPassword;
+      user.role = UserRole.USER;
+      user.status = true;
+      user.created_at = new Date();
+      
+      this.repository.create(user);
 
       return await this.repository.save(user);
     } catch (error) {
