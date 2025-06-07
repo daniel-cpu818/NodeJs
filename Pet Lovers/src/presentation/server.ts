@@ -20,7 +20,7 @@ export class Server {
   }
 
   private configureMiddleware() {
-    this.app.use(express.json()); // Necesario para leer JSON del body
+    this.app.use(express.json()); 
   }
 
   private configureRoutes() {

@@ -4,6 +4,7 @@ import  jwt from "jsonwebtoken";
 import { User } from "../../../data/postgres/models/user.model";
 import { AppDataSource } from "../../../config/data-source";
 import { env } from "../../../config/envs";
+import { Response } from "express";
 
 interface LoginDTO {
   email: string;
@@ -21,16 +22,18 @@ export class LoginUserService {
 
   }
 
-  async login(data: LoginDTO): Promise<{ token: string; user: Partial<User> }> {
+  async login(data: LoginDTO, res:Response): Promise<{ token: string; user: Partial<User> }> {
     try {
       const user = await this.repository.findOneBy({ email: data.email.toLowerCase().trim() });
 
       if (!user) {
+        res.status(401).json({ message: "El correo no existe" });
         throw new Error("Credenciales incorrectas");
       }
 
       const isPasswordValid = await bcrypt.compare(data.password, user.password);
       if (!isPasswordValid) {
+        res.status(401).json({ message: "Credenciales incorrectas" });
         throw new Error("Credenciales incorrectas");
       }
 

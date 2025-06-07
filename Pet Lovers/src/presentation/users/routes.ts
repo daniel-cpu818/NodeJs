@@ -6,6 +6,8 @@ import { FindUsersService } from "./services/finder-users.service";
 import { DeleteUserService } from "./services/eliminator-user.service";
 import { UpdateUserService } from "./services/upadater-user.service";
 import { LoginUserService } from "./services/login-user.service";
+import { RejectPetPostService } from "./services/reject-user.service";
+import { ApprovePetPostService } from "./services/approve-user.service";
 
 export class UserRoutes {
   static get routes(): Router {
@@ -18,6 +20,8 @@ export class UserRoutes {
     const deleteUserService = new DeleteUserService();
     const updateUserService = new UpdateUserService();
     const loginUserService = new LoginUserService();
+    const approveUserService = new ApprovePetPostService();
+    const rejectUserService = new RejectPetPostService();
     
     // Controllers
     const controller = new UserController(
@@ -26,7 +30,9 @@ export class UserRoutes {
       findUsersService,
       deleteUserService,
       updateUserService,
-      loginUserService
+      loginUserService,
+      approveUserService,
+      rejectUserService
     );
     // Routes
     router.post("/users", controller.registerUser.bind(controller));
@@ -35,6 +41,9 @@ export class UserRoutes {
     router.delete("/users/:id", controller.deleteUser.bind(controller));
     router.put("/users/:id", controller.updateUser.bind(controller));
     router.post("/login", controller.loginUser.bind(controller));
+    router.put("/users/:id/approve", controller.approveUser.bind(controller));
+    router.put("/users/:id/reject", controller.rejectUser.bind(controller));
+
 
     return router;
   }
